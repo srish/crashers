@@ -1,0 +1,72 @@
+
+
+http://maps.googleapis.com/maps/api/geocode/json?address=intersection+massachusetts+avenue+and+norfolk+street&sensor=false
+
+And the output produced:
+
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Massachusetts Avenue",
+               "short_name" : "Massachusetts Avenue",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Area IV",
+               "short_name" : "Area IV",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Cambridge",
+               "short_name" : "Cambridge",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Middlesex",
+               "short_name" : "Middlesex",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Massachusetts",
+               "short_name" : "MA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "02139",
+               "short_name" : "02139",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Massachusetts Avenue & Norfolk Street, Cambridge, MA 02139, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.3644325,
+               "lng" : -71.1020946
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.3657814802915,
+                  "lng" : -71.10074561970849
+               },
+               "southwest" : {
+                  "lat" : 42.3630835197085,
+                  "lng" : -71.10344358029151
+               }
+            }
+         },
+         "types" : [ "intersection" ]
+      }
+   ],
+   "status" : "OK"
+}
+
+
+
