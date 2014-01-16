@@ -1,0 +1,10 @@
+{
+        "potholes": [
+                { "address":"125 Coolidge Avenue Watertown, Massachusetts","issue":"Pothole" },
+                { "address":"33 Grove Street Watertown, Massachusetts","issue":"Pothole" },
+                { "address":"33 Grove Street Watertown, Massachusetts","issue":"Pothole" },
+                { "address":"1-9 Clinton Street Cambridge, MA","issue":"Pothole" },
+                { "address":"Storrow Drive Boylston St Off Ramp Boston, Massachusetts","issue":"Uneven road"},
+                { "address":"48-58 Ruggles Street Boston, MA ","issue":"Pothole"}
+        ]
+}
