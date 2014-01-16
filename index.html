@@ -1,40 +1,149 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Simple markers</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link href="css/screen.css" rel="stylesheet"/>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <script src="js/app.js"></script>
+
+    <title>Crashers</title>
+
     <style>
       html, body, #map-canvas {
         height: 100%;
         margin: 0px;
-        padding: 0px
-      }
-    </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-    <script>
-function initialize() {
-  var Boston = new google.maps.LatLng(42.3584300,-71.0597700);
-  var locations = [[42.3751000, -71.1056100], [42.3317600, -71.1211600]];
-  var mapOptions = {
-      zoom: 12,
-      center: Boston
-  }
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  for (var i = 0; i < locations.length; i++) {
-    var myLatlng = new google.maps.LatLng(locations[i][0],locations[i][1]);
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map
-    });
-  }
-}
+        padding: 0px;
+    }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+    </style>
+
+    <script>
+
+    var marker;
+    var bounceTimer;
+    var potholearray = []; 
+    var speedbumberarray = [];
+    var markerarray = [];
+
+    function initialize() {
+          var Boston = new google.maps.LatLng(42.161974, -71.042551);
+          var mapOptions = {
+              zoom: 12,
+              center: Boston
+        }
+
+        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);   
+
+        $.getJSON("data/data.json", function(data) {
+                for (var i in data.accidentpronedata) {
+                    var myLatlng = new google.maps.LatLng(data.accidentpronedata[i].latitude,data.accidentpronedata[i].longitude);
+
+                    var marker = new google.maps.Marker({
+                        draggable: false,
+                        position: myLatlng,
+                        map: map,
+                        icon: "img/danger.png",
+                        optimized: false,
+                    });
+
+                    markerarray.push(marker);
+
+                    google.maps.event.addListener(marker, "mouseover", mouseover);
+                    google.maps.event.addListener(marker, "mouseout", mouseout);
+
+                    google.maps.event.addListener(markerarray[i], "click", function(event) {
+                            infowindow.setContent('<font size="4pt">Watch out! This is an accident prone area</font>');
+                            infowindow.setPosition(this.position);
+                            infowindow.open(map, this);
+                            document.getElementById("accidentproneaudio").play();
+                    });
+                }
+
+                for (var i in data.speedbumperdata) {
+                    var myLatlng = new google.maps.LatLng(data.speedbumperdata[i].latitude,data.speedbumperdata[i].longitude);
+
+                    var speedbumbermarker = new google.maps.Marker({
+                        draggable: false,
+                        position: myLatlng,
+                        map: map,
+                        icon: "img/speed_bump.png",
+                        optimized: false,
+                    });
+
+                    speedbumberarray.push(speedbumbermarker);
+
+                    google.maps.event.addListener(speedbumbermarker, "mouseover", mouseover);
+                    google.maps.event.addListener(speedbumbermarker, "mouseout", mouseout);
+                    google.maps.event.addListener(speedbumberarray[i], "click", function(event) {
+                            infowindow.setContent('<font size="4 pt">Slow slow slow down for this speed bump</font>');
+                            infowindow.setPosition(this.position);
+                            infowindow.open(map, this);
+                            document.getElementById("speedbumpaudio").play();
+                    });
+                }
+
+                var infowindow = new google.maps.InfoWindow({});
+
+                for (var i in data.potholedata) {
+                    var myLatlng = new google.maps.LatLng(data.potholedata[i].latitude,data.potholedata[i].longitude);
+
+                    var potholemarker = new google.maps.Marker({
+                        draggable: false,
+                        position: myLatlng,
+                        map: map,
+                        icon: "img/pithole.png",
+                        optimized: false,
+                    });
+
+                    potholearray.push(potholemarker);
+
+                    google.maps.event.addListener(potholemarker, "mouseover", mouseover);
+                    google.maps.event.addListener(potholemarker, "mouseout", mouseout);
+
+                    google.maps.event.addListener(potholearray[i], "click", function(event) {
+                            infowindow.setContent('<font size="4 pt">Pot hole alert! </font>');
+                            infowindow.setPosition(this.position);
+                            infowindow.open(map, this);
+                        document.getElementById("potholeaudio").play();
+                    });
+                }
+          });
+    }
+
+    google.maps.event.addDomListener(window, "load", initialize);
 
     </script>
+
   </head>
-  <body>
+  <body class="container">
+    <div class="page-header">
+        <h1>Example page header <small>Subtext for header</small></h1>
+    </div>
+
     <div id="map-canvas"></div>
-  </body>
+
+    <audio id="potholeaudio" src="audio/pothole.mp3">
+    </audio>
+
+    <audio id="speedbumpaudio" src="audio/speedbump.mp3">
+    </audio>
+
+    <audio id="accidentproneaudio" src="audio/accident.mp3">
+    </audio>
+
+    <div class="footer">Built at <a href="ideo.cc/projects/vw-hackathon/"> vw-hackathon</a> by Marcela, Hakim, Srishti and David.
+    </div>  
+
+    </body>
 </html>

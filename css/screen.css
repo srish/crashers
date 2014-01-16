@@ -1,0 +1,11 @@
+h1 {
+	position: relative;
+	margin-left: 100px;
+	color: red;
+}
+
+#footer {
+	position: relative;
+	margin-top: 650px;
+	font-size: 20px;
+}
