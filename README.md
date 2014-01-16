@@ -5,3 +5,6 @@ A safety car app that prevents the accidents by tracking upcoming obstacles (lik
 
 We are using this webservice to query data from MassDot Crash Report System. It gives data in excel sheet format.
 http://services.massdot.state.ma.us/crashportal/CrashMapPage.aspx?Mode=Adhoc
+
+Link to the presentation slides for vwhackathon: https://docs.google.com/presentation/d/1Q-9rheeWBf249oFLWSi7dVvrh-iMI-ONrj2yFmIBzJc/edit#slide=id.g2a10c9a25_2_75
+
