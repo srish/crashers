@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+function initialize() {
+  var Boston = new google.maps.LatLng(42.3584300,-71.0597700);
+  var locations = [[42.3751000, -71.1056100], [42.3317600, -71.1211600]];
+  var mapOptions = {
+      zoom: 12,
+      center: Boston
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  for (var i = 0; i < locations.length; i++) {
+    var myLatlng = new google.maps.LatLng(locations[i][0],locations[i][1]);
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map
+    });
+  }
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>
